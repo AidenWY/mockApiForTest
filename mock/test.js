@@ -6,10 +6,11 @@ module.exports = {
     method: 'get',
     response: () => {
         return {
-            errNo:0,         
+            errNo: 0,
+            msg: 'success',
             data: {
                 name: Random.cname(),
-                age: Random.integer(1,100)
+                age: Random.integer(1, 100)
             }
         };
     }
