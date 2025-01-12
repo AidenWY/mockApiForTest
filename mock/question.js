@@ -32,12 +32,20 @@ module.exports = [
         // 获取(查询)问卷列表
         url: '/api/question',
         method: 'get',
-        response() {
+        response(ctx) {
+            const { url, query } = ctx;
+            console.log(query)
+
+            const isStar = ctx.query.isStar;
+            const isPublished = ctx.query.isPublished;
+            const isDeleted = ctx.query.isDeleted;
+            console.log(isStar, isPublished, isDeleted)
+
             return {
                 errNo: 0,
                 msg: 'success',
-                data: { list: getQuestionList(), total: 100 }
+                data: { list: getQuestionList({isStar, isPublished, isDeleted}), total: 100 }
             }
         }
-    }
+    },
 ]

@@ -10,12 +10,12 @@ console.log('mock 模块类型:', typeof mock);
 console.log('mock 内容:', JSON.stringify(mock, null, 2));
 
 // 定义异步响应函数
-async function getRes(fn) {
+async function getRes(fn, ctx) {
     return new Promise((resolve) => {
         setTimeout(() => {
-            const res = fn();
+            const res = fn(ctx);
             resolve(res);
-        }, 500)
+        }, 1000)
     })
 }
 
@@ -24,7 +24,7 @@ mock.forEach((item) => {
     const method = item.method.toLowerCase();
     router[method](item.url, async (ctx) => {
         try {
-            ctx.body = await getRes(item.response);
+            ctx.body = await getRes(item.response, ctx);
         } catch (err) {
             console.error(`路由处理错误 ${item.url}:`, err);
             ctx.status = 500;
